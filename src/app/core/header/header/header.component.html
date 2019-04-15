@@ -1,0 +1,18 @@
+<div>
+  <span *ngIf="router.url !== '/home'">
+      <a routerLink="/home">Home</a>  
+  </span>
+  <span *ngIf="router.url !== '/home' && isAuthenticated()">
+      |
+  </span>
+  <span *ngIf="isAuthenticated()">
+      <a routerLink="/companions">Companions</a> 
+  </span>
+  <span *ngIf="isAuthenticated() && router.url !== '/login'">
+      |
+  </span>
+  <span *ngIf="router.url !== '/login'">
+    <a [routerLink]="" (click)="logout()" *ngIf="isAuthenticated()">Logout</a>
+    <a routerLink="/login" *ngIf="!isAuthenticated()">Login</a>
+  </span>  
+</div>

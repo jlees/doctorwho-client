@@ -1,0 +1,10 @@
+<p>
+  Companion Details
+  {{ companion.name }}
+  <span *ngIf="doctors.length">
+    <ul>
+        <li *ngFor="let doctor of doctors">{{doctor.name}}</li>
+    </ul>
+  </span>
+{{hasWritePermission}}
+</p>

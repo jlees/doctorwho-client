@@ -1,0 +1,21 @@
+<h3>Login</h3>
+<form name="form" #f="ngForm" novalidate>
+<div>
+    <div *ngIf="displayGeneralLoginError()">
+        Unable to login. Please correct your User Name or Password.
+    </div>
+    <div class="spacer">
+      <label for="username">User Name:</label>
+      <input name="username" type="text" placeholder="User Name" [(ngModel)]="model.username" required #username="ngModel">
+      <div *ngIf="f.submitted && username.invalid">User Name is required</div>
+    </div>
+    <div class="spacer">
+      <label for="password">Password:</label>
+      <input name="password" type="password" placeholder="password" [(ngModel)]="model.password" required #password="ngModel"/>
+      <div *ngIf="f.submitted && password.invalid">Password is required</div>
+    </div>
+    <div class="spacer">
+      <button  type="submit" (click)="login()">Login</button>
+    </div>
+</div>
+</form>

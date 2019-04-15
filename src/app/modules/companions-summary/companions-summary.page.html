@@ -1,0 +1,12 @@
+<h2>Companions</h2>
+
+<div style="margin-top: 20px; width: 100%; height: 350px; box-sizing: border-box">
+  <ag-grid-angular 
+      style="width: 450px; height: 100%"
+      class="ag-theme-balham"
+      [pagination]="true"
+      [paginationPageSize]="10"
+      [rowData]="companions" 
+      [columnDefs]="columnDefs">
+  </ag-grid-angular>
+</div>
