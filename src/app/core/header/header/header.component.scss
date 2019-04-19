@@ -1,0 +1,23 @@
+.mat-toolbar.mat-primary {
+    background: #000 url('/assets/images/header.jpg') no-repeat left top;
+}
+
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+    background-color: #003b6f; 
+}
+
+.mat-flat-button {
+    color: #003b6f;
+}
+
+.pipe {
+    padding: 0 5px;
+}
+
+.example-icon {
+     padding: 0 14px;
+ }
+  
+.example-spacer {
+    flex: 1 1 auto;
+}

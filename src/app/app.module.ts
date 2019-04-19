@@ -4,6 +4,14 @@ import { NgModule } from '@angular/core';
 
 import { AgGridModule } from 'ag-grid-angular';
 
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card'
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +24,7 @@ import { HomeComponent } from './modules/home/home.page';
 import { CompanionsSummaryComponent } from './modules/companions-summary/companions-summary.page';
 import { HeaderComponent } from './core/header/header/header.component';
 import { JwtInterceptor } from './core/auth/jwt.interceptor';
+import { HasPermissionDirective } from './shared/directives/has-permission.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +34,8 @@ import { JwtInterceptor } from './core/auth/jwt.interceptor';
     CompanionDetailComponent,
     LoginComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    HasPermissionDirective
   ],
   entryComponents: [RouterLinkRendererComponent],
   imports: [
@@ -35,7 +45,14 @@ import { JwtInterceptor } from './core/auth/jwt.interceptor';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatToolbarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },    

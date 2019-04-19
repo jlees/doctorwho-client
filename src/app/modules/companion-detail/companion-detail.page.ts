@@ -4,8 +4,6 @@ import { Companion } from 'src/app/shared/models/companion';
 import { CompanionService } from 'src/app/core/services/companion.service';
 import { Doctor } from 'src/app/shared/models/doctor';
 import { DoctorService } from 'src/app/core/services/doctor.service';
-import { User } from 'src/app/shared/models/user';
-import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-companion-detail',
@@ -14,15 +12,12 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 })
 export class CompanionDetailComponent implements OnInit {
 
-  hasWritePermission: Boolean;
   companion: Companion;
   doctors: Doctor[];
 
   constructor(private route: ActivatedRoute,
-              private authService: AuthService, 
               private companionService: CompanionService,
               private doctorService: DoctorService) {
-      this.hasWritePermission = this.authService.hasWritePermission();
       this.companion = new Companion();
       this.doctors = [];
   }

@@ -1,18 +1,22 @@
-<div>
-  <span *ngIf="router.url !== '/home'">
-      <a routerLink="/home">Home</a>  
-  </span>
-  <span *ngIf="router.url !== '/home' && isAuthenticated()">
-      |
-  </span>
-  <span *ngIf="isAuthenticated()">
-      <a routerLink="/companions">Companions</a> 
-  </span>
-  <span *ngIf="isAuthenticated() && router.url !== '/login'">
-      |
-  </span>
-  <span *ngIf="router.url !== '/login'">
-    <a [routerLink]="" (click)="logout()" *ngIf="isAuthenticated()">Logout</a>
-    <a routerLink="/login" *ngIf="!isAuthenticated()">Login</a>
-  </span>  
-</div>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span><img src="/assets/images/logo.png" style="height:50px;" /></span>
+    <span class="example-spacer"></span>
+    <span *ngIf="router.url !== '/home'">
+      <a routerLink="/home"><button mat-flat-button>Home</button></a>  
+    </span>
+    <span class="pipe" *ngIf="router.url !== '/home' && isAuthenticated()">
+        |
+    </span>
+    <span *ngIf="isAuthenticated()">
+        <a routerLink="/companions"><button mat-flat-button>Companions</button></a> 
+    </span>
+    <span class="pipe" *ngIf="isAuthenticated() && router.url !== '/login'">
+        |
+    </span>
+    <span *ngIf="router.url !== '/login'">
+      <a [routerLink]="" (click)="logout()" *ngIf="isAuthenticated()"><button mat-flat-button>Logout</button></a>
+      <a routerLink="/login" *ngIf="!isAuthenticated()"><button mat-flat-button>Login</button></a>
+    </span>  
+  </mat-toolbar-row>
+</mat-toolbar>

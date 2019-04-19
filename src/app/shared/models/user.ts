@@ -1,8 +1,8 @@
-import { Role } from './role';
+import { Permission } from './permission';
 
 export class User {
     username: string;
     password: string;
-    roles: string[];
+    permissions: string[];
     token?: string;   
 }

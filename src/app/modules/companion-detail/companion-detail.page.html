@@ -1,10 +1,27 @@
-<p>
-  Companion Details
-  {{ companion.name }}
-  <span *ngIf="doctors.length">
-    <ul>
-        <li *ngFor="let doctor of doctors">{{doctor.name}}</li>
-    </ul>
-  </span>
-{{hasWritePermission}}
-</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar *ngIf="companion.avatarUrl" class="example-header-image" [style.backgroundImage]="'url('+ companion.avatarUrl +')'"></div>
+    
+    <mat-card-title>{{ companion.name }}</mat-card-title>
+    <mat-card-subtitle>
+      <span *ngIf="doctors.length">
+          <span *ngFor="let doctor of doctors; last as isLast">{{doctor.name}}{{isLast ? '' : ', '}}</span>
+      </span>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+      <mat-grid-list cols="3" rowHeight="400px">
+          <mat-grid-tile>
+              <img src="{{ companion.photoUrl }}" alt="Photo of {{ companion.name }}">            
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+              {{ companion.description }}
+          </mat-grid-tile>
+
+          <div *hasPermission="['upsert_companion']">
+              <button type="button">Edit</button>
+          </div>
+
+      </mat-grid-list>
+  </mat-card-content>
+</mat-card>
