@@ -1,7 +1,24 @@
-.example-card {
+.companion-detail-card {
     max-width: 800px;
 }
   
-.example-header-image {
+.companion-detail-header-image {
     background-size: cover;
+}
+
+.companion-detail-container {
+    display: flex;
+    flex-direction: column;
+}
+  
+.companion-detail-container > * {
+    width: 70%;
+}
+
+.companion-detail-container > img.companion-img-url {
+    width: 50px;
+}
+
+.mat-form-field {
+    padding-top: 10px;
 }

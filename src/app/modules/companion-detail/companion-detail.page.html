@@ -1,11 +1,61 @@
-<mat-card class="example-card">
+<mat-card class="companion-detail-card" *ngIf="inEditMode">
+    <mat-card-header>
+        <mat-card-title>Edit Companion Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form name="form" #f="ngForm" novalidate>
+        <div class="companion-detail-container">
+          <mat-form-field>
+            <input matInput name="companionName" type="text" placeholder="Companion Name" [(ngModel)]="companionForEdit.name" 
+                required #companionName="ngModel">
+            <mat-error *ngIf="companionName.invalid">Companion Name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput name="avatarUrl" type="text" placeholder="Avatar Url" [(ngModel)]="companionForEdit.avatarUrl" 
+                required #avatarUrl="ngModel">
+            <mat-error *ngIf="avatarUrl.invalid">Avatar Url is required</mat-error>
+          </mat-form-field>
+          <img *ngIf="companionForEdit.avatarUrl" src="{{companionForEdit.avatarUrl}}" class="companion-img-url" />    
+          <mat-form-field>
+            <input matInput name="photoUrl" type="text" placeholder="Photo Url" [(ngModel)]="companionForEdit.photoUrl" 
+                required #photoUrl="ngModel">
+            <mat-error *ngIf="photoUrl.invalid">Photo Url is required</mat-error>
+          </mat-form-field>
+          <img *ngIf="companionForEdit.photoUrl" src="{{companionForEdit.photoUrl}}" class="companion-img-url" />    
+          <mat-form-field>
+              <mat-select name="associatedDoctors" placeholder="Select" multiple placeholder="Associated Doctors"
+                [(ngModel)]="companionForEdit.doctorIds" required #associatedDoctors="ngModel">
+                <mat-option *ngFor="let doctor of allDoctors" [value]="doctor.id">{{doctor.name}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="associatedDoctors.invalid">At least one associated doctor is required</mat-error>
+            </mat-form-field>
+          <mat-form-field>
+            <textarea matInput name="description" placeholder="Description"[(ngModel)]="companionForEdit.description" 
+                required #companionDescription="ngModel" rows="8"></textarea>
+            <mat-error *ngIf="companionDescription.invalid">Description is required</mat-error>
+          </mat-form-field>
+        </div>  
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="button" (click)="saveCompanionEdits()">Save</button>      
+      <button mat-raised-button color="primary" type="button" (click)="cancelCompanionEdits()">Cancel</button>
+    </mat-card-actions>
+</mat-card>
+
+<mat-card class="companion-detail-card" *ngIf="!(inEditMode)">
   <mat-card-header>
-    <div mat-card-avatar *ngIf="companion.avatarUrl" class="example-header-image" [style.backgroundImage]="'url('+ companion.avatarUrl +')'"></div>
+    <div mat-card-avatar *ngIf="companion.avatarUrl" class="companion-detail-header-image" [style.backgroundImage]="'url('+ companion.avatarUrl +')'"></div>
     
-    <mat-card-title>{{ companion.name }}</mat-card-title>
+    <mat-card-title>
+      {{ companion.name }}
+      <span *hasPermission="['upsert_companion']">
+          <button mat-raised-button color="primary" type="button" (click)="switchToEditMode()">Edit</button>
+      </span>
+    </mat-card-title>
     <mat-card-subtitle>
-      <span *ngIf="doctors.length">
-          <span *ngFor="let doctor of doctors; last as isLast">{{doctor.name}}{{isLast ? '' : ', '}}</span>
+      <span *ngIf="associatedDoctors.length">
+          <span *ngFor="let doctor of associatedDoctors; last as isLast">{{doctor.name}}{{isLast ? '' : ', '}}</span>
       </span>
     </mat-card-subtitle>
   </mat-card-header>
@@ -16,12 +66,7 @@
           </mat-grid-tile>
           <mat-grid-tile colspan="2">
               {{ companion.description }}
-          </mat-grid-tile>
-
-          <div *hasPermission="['upsert_companion']">
-              <button type="button">Edit</button>
-          </div>
-
+            </mat-grid-tile>
       </mat-grid-list>
   </mat-card-content>
 </mat-card>

@@ -7,7 +7,7 @@
       <div *ngIf="displayGeneralLoginError()">
           Unable to login. Please correct your User Name or Password.
       </div>
-      <div class="example-container">
+      <div class="login-container">
         <mat-form-field>
           <input matInput name="username" type="text" placeholder="User Name" [(ngModel)]="model.username" required #username="ngModel">
           <mat-error *ngIf="username.invalid">User Name is required</mat-error>

@@ -13,13 +13,19 @@ import { DoctorService } from 'src/app/core/services/doctor.service';
 export class CompanionDetailComponent implements OnInit {
 
   companion: Companion;
-  doctors: Doctor[];
+  companionForEdit: Companion;  
+  allDoctors: Doctor[];
+  associatedDoctors: Doctor[];
+  inEditMode: boolean;
 
   constructor(private route: ActivatedRoute,
               private companionService: CompanionService,
               private doctorService: DoctorService) {
       this.companion = new Companion();
-      this.doctors = [];
+      this.companionForEdit = null;
+      this.allDoctors = [];
+      this.associatedDoctors = [];      
+      this.inEditMode = false;
   }
 
   ngOnInit() {
@@ -29,17 +35,41 @@ export class CompanionDetailComponent implements OnInit {
         this.companionService.getCompanion(companionId).subscribe(companion => { 
           this.companion = companion; 
           if (companion) {
-            let doctorIds: number[] = companion.doctorIds;
             this.doctorService.getDoctors().subscribe(doctors => { 
-              if (doctorIds) {
-                doctors = doctors.filter(doctor => doctorIds.includes(doctor.id));
-              }
-              this.doctors = doctors; 
+              this.allDoctors = doctors;
+              this.updateAssociatedDoctorsFromContact();
             });
           }
         });
       }
     });
+  }
+
+  updateAssociatedDoctorsFromContact() {
+    let doctorIds: number[] = this.companion.doctorIds;
+    if (doctorIds) {
+      this.associatedDoctors = this.allDoctors.filter(doctor => doctorIds.includes(doctor.id));
+    }
+  }
+
+  switchToEditMode() {
+    this.companionForEdit = Object.assign({}, this.companion);
+    this.companionForEdit.doctorIds = Object.assign([], this.companion.doctorIds);
+    this.inEditMode = true;    
+  }
+
+  saveCompanionEdits() {
+    this.companionService.saveCompanion(this.companionForEdit).subscribe(companion => {
+      this.companion = this.companionForEdit;
+      this.updateAssociatedDoctorsFromContact();
+      this.inEditMode = false;
+      this.companionForEdit = null;
+    });  
+  }
+
+  cancelCompanionEdits() {
+    this.inEditMode = false;
+    this.companionForEdit = null;
   }
 
 }

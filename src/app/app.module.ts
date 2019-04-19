@@ -9,7 +9,7 @@ import {MatCardModule} from '@angular/material/card'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material';
+import {MatInputModule, MatOptionModule, MatSelectModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +25,7 @@ import { CompanionsSummaryComponent } from './modules/companions-summary/compani
 import { HeaderComponent } from './core/header/header/header.component';
 import { JwtInterceptor } from './core/auth/jwt.interceptor';
 import { HasPermissionDirective } from './shared/directives/has-permission.directive';
+import { MissingPermissionDirective } from './shared/directives/missing-permission.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HasPermissionDirective } from './shared/directives/has-permission.direc
     LoginComponent,
     HomeComponent,
     HeaderComponent,
-    HasPermissionDirective
+    HasPermissionDirective,
+    MissingPermissionDirective
   ],
   entryComponents: [RouterLinkRendererComponent],
   imports: [
@@ -52,6 +54,8 @@ import { HasPermissionDirective } from './shared/directives/has-permission.direc
     MatGridListModule,
     MatIconModule,
     MatInputModule,
+    MatOptionModule,
+    MatSelectModule,
     MatToolbarModule
   ],
   providers: [
