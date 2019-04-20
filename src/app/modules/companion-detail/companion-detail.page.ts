@@ -18,7 +18,8 @@ export class CompanionDetailComponent implements OnInit {
   associatedDoctors: Doctor[];
   inEditMode: boolean;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute, 
+              private router: Router,
               private companionService: CompanionService,
               private doctorService: DoctorService) {
       this.companion = new Companion();
@@ -29,19 +30,22 @@ export class CompanionDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      let companionId = +params['companion_id'];
-      if (companionId) {
-        this.companionService.getCompanion(companionId).subscribe(companion => { 
-          this.companion = companion; 
-          if (companion) {
-            this.doctorService.getDoctors().subscribe(doctors => { 
-              this.allDoctors = doctors;
-              this.updateAssociatedDoctorsFromContact();
-            });
-          }
-        });
-      }
+    this.doctorService.getDoctors().subscribe(doctors => { 
+      this.allDoctors = doctors;
+      this.route.params.subscribe((params: Params) => {
+        let companionId = +params['companion_id'];
+        if (companionId) {
+          this.companionService.getCompanion(companionId).subscribe(companion => { 
+            this.companion = companion; 
+            if (companion) {
+                this.updateAssociatedDoctorsFromContact();
+            }
+          });
+        } else {
+          this.companionForEdit = this.companion;
+          this.inEditMode = true;
+        }
+      });
     });
   }
 
@@ -52,6 +56,12 @@ export class CompanionDetailComponent implements OnInit {
     }
   }
 
+  deleteContact() {
+    this.companionService.deleteCompanion(this.companion.id).subscribe(() => {
+      this.router.navigate(['companions']);
+    });    
+  }
+
   switchToEditMode() {
     this.companionForEdit = Object.assign({}, this.companion);
     this.companionForEdit.doctorIds = Object.assign([], this.companion.doctorIds);
@@ -60,6 +70,7 @@ export class CompanionDetailComponent implements OnInit {
 
   saveCompanionEdits() {
     this.companionService.saveCompanion(this.companionForEdit).subscribe(companion => {
+      this.companionForEdit = companion;      
       this.companion = this.companionForEdit;
       this.updateAssociatedDoctorsFromContact();
       this.inEditMode = false;

@@ -1,7 +1,8 @@
 <mat-card class="companion-detail-card" *ngIf="inEditMode">
     <mat-card-header>
-        <mat-card-title>Edit Companion Details</mat-card-title>
-    </mat-card-header>
+        <mat-card-title *ngIf="!companionForEdit.id">Add Companion Details</mat-card-title>
+        <mat-card-title *ngIf="companionForEdit.id">Edit Companion Details</mat-card-title>
+      </mat-card-header>
     <mat-card-content>
       <form name="form" #f="ngForm" novalidate>
         <div class="companion-detail-container">
@@ -50,7 +51,10 @@
     <mat-card-title>
       {{ companion.name }}
       <span *hasPermission="['upsert_companion']">
-          <button mat-raised-button color="primary" type="button" (click)="switchToEditMode()">Edit</button>
+          <mat-card-actions>
+             <button mat-raised-button color="primary" type="button" (click)="switchToEditMode()">Edit</button>
+             <button *ngIf="companion.id" mat-raised-button color="primary" type="button" (click)="deleteContact()">Delete</button>
+          </mat-card-actions>
       </span>
     </mat-card-title>
     <mat-card-subtitle>

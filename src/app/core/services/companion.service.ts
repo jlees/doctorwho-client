@@ -13,18 +13,27 @@ const httpOptions = {
 })
 export class CompanionService {
 
+  private apiSchemaHostPort = 'http://localhost:8080';
+
   constructor(private http: HttpClient) { }
 
   getCompanion(companion_id: number): Observable<Companion> {
-    return this.http.get<Companion>(`http://localhost:8080/api/companions/${companion_id}`);  
+    return this.http.get<Companion>(`${this.apiSchemaHostPort}/api/companions/${companion_id}`);  
   }
 
   getCompanions(): Observable<Companion[]> {
-     return this.http.get<Companion[]>("http://localhost:8080/api/companions");
+     return this.http.get<Companion[]>(`${this.apiSchemaHostPort}/api/companions`);
   } 
 
   saveCompanion(companion: Companion): Observable<any> {
-    return this.http.put(`http://localhost:8080/api/companions/${companion.id}`, companion, httpOptions);
+    if (companion.id) {
+      return this.http.put(`${this.apiSchemaHostPort}/api/companions/${companion.id}`, companion, httpOptions);
+    }
+    return this.http.post(`${this.apiSchemaHostPort}/api/companions`, companion, httpOptions);
+  }
+
+  deleteCompanion(companion_id: number): Observable<Companion> {
+    return this.http.delete<Companion>(`${this.apiSchemaHostPort}/api/companions/${companion_id}`);  
   }
 
 }

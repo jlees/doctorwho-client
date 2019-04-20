@@ -8,6 +8,7 @@ import { HomeComponent } from './modules/home/home.page';
 
 const routes: Routes = [
   { path: 'companion/:companion_id', canActivate: [AuthenticationGuard], component: CompanionDetailComponent },
+  { path: 'companion', canActivate: [AuthenticationGuard], component: CompanionDetailComponent },
   { path: 'companions', canActivate: [AuthenticationGuard], component: CompanionsSummaryComponent },  
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
