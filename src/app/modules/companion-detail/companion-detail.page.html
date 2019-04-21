@@ -66,7 +66,7 @@
   <mat-card-content>
       <mat-grid-list cols="3" rowHeight="400px">
           <mat-grid-tile>
-              <img src="{{ companion.photoUrl }}" alt="Photo of {{ companion.name }}">            
+              <img *ngIf="companion.photoUrl" src="{{ companion.photoUrl }}" alt="Photo of {{ companion.name }}">            
           </mat-grid-tile>
           <mat-grid-tile colspan="2">
               {{ companion.description }}
