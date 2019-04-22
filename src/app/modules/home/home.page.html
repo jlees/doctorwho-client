@@ -1,6 +1,15 @@
 <mat-card>
     <mat-card-content>
-        <p>
+        <table>
+            <tr>
+                <td *ngFor="let doctor of allDoctors">
+                    <a routerLink="/doctors/{{doctor.id}}">
+                        <img src="/assets/images/doctor_{{doctor.code}}.png"/>
+                    </a>    
+                </td>
+            </tr>
+        </table>     
+        <p style="padding-left: 10px; padding-right: 10px;">
             Doctor Who is a British science fiction television show produced by the BBC since 1963. The show depicts the adventures of a Time Lord called "the Doctor", an extraterrestrial being, to all appearances human, from the planet Gallifrey. The Doctor explores the universe in a time-travelling space ship called the TARDIS. Its exterior appears as a blue British police box, which was a common sight in Britain in 1963 when the series first aired. Accompanied by a number of companions, the Doctor combats a variety of foes while working to save civilizations and help people in need. 
         </p>
     </mat-card-content>

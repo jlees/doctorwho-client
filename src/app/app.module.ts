@@ -26,6 +26,7 @@ import { HeaderComponent } from './core/header/header/header.component';
 import { JwtInterceptor } from './core/auth/jwt.interceptor';
 import { HasPermissionDirective } from './shared/directives/has-permission.directive';
 import { MissingPermissionDirective } from './shared/directives/missing-permission.directive';
+import { DoctorDetailComponent } from './modules/doctor-detail/doctor-detail.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MissingPermissionDirective } from './shared/directives/missing-permissi
     HomeComponent,
     HeaderComponent,
     HasPermissionDirective,
-    MissingPermissionDirective
+    MissingPermissionDirective,
+    DoctorDetailComponent
   ],
   entryComponents: [RouterLinkRendererComponent],
   imports: [
